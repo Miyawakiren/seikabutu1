@@ -39,5 +39,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+Route::delete('/posts/{post}', [PostController::class,'delete']);
+
 
 
