@@ -13,9 +13,28 @@ class PostController extends Controller
     public function index(Post $post)
     {
         return view('posts.index')->with(['posts' => $post->getPaginateByLimit()]);  
-}  
-public function like(Request $request)
-{
+    }  
+    
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+     //'post'はbladeファイルで使う変数。中身は$postはid=1のPostインスタンス。
+    }
+    
+    public function create()
+    {
+        return view('posts.create');
+    }
+    
+    public function store(Request $request, Post $post)
+    {
+        $input = $request['post'];
+        $post->fill($input)->save();
+        return redirect('/posts/' . $post->id);
+    }
+    
+    public function like(Request $request)
+    {
     $user_id = Auth::user()->id; // ログインしているユーザーのidを取得
     $post_id = $request->post_id; // 投稿のidを取得
 
