@@ -47,6 +47,12 @@ class PostController extends Controller
         return redirect('/posts/' . $post->id);
     }
     
+    public function delete(Post $post)
+    {
+        $post->delete();
+        return redirect('/');
+    }
+    
     public function like(Request $request)
     {
     $user_id = Auth::user()->id; // ログインしているユーザーのidを取得
