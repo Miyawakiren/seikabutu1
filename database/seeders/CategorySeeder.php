@@ -22,11 +22,14 @@ class CategorySeeder extends Seeder
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
               ],
-               [
+              
+              [
                 'name' => '関西',
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
               ],
+              
+             
         ]);
     }
 }
