@@ -1,6 +1,6 @@
 <x-app-layout>
     <body>
-        <h1>Blog Name</h1>
+        <h1>聖地</h1>
         <a href='/posts/create'>create</a>
         <div class='posts'>
             @foreach ($posts as $post)
