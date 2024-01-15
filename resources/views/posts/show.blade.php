@@ -11,10 +11,14 @@
         <h1 class="title">
             {{ $post->title }}
         </h1>
+        <a href="">{{ $post->category->name }}</a>
         <div class="content">
             <div class="content__post">
                 <h3>本文</h3>
                 <p>{{ $post->body }}</p>    
+            </div>
+            <div>
+                <img src="{{ $post->image_url }}" alt="画像が読み込めません。"/>
             </div>
         </div>
          <div class="edit">

@@ -7,6 +7,8 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
+use Cloudinary;
 
 class PostController extends Controller
 {
@@ -22,14 +24,20 @@ class PostController extends Controller
      //'post'はbladeファイルで使う変数。中身は$postはid=1のPostインスタンス。
     }
     
-    public function create()
+    public function create(Category $category)
     {
-        return view('posts.create');
+        return view('/posts/create')->with(['categories' => $category->get()]);
     }
+    
     
     public function store(PostRequest $request, Post $post)
     {
+        
+        $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+       
+        
         $input = $request['post'];
+        $input += ['image_url' => $image_url];
         $post->fill($input)->save();
         return redirect('/posts/' . $post->id);
     }
@@ -70,6 +78,12 @@ class PostController extends Controller
         'post_likes_count' => $post_likes_count,
     ];
     return response()->json($param); // JSONデータをjQueryに返す
-}
+    }
+
+    public function delete(Post $post)
+    {
+        $post->delete();
+        return redirect('/');
+    }
 
 }
