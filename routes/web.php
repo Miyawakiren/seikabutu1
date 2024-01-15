@@ -23,12 +23,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/posts/create', [PostController::class, 'create']);
-
 Route::get('/posts/{post}', [PostController::class ,'show']);
-
-Route::get('/', [PostController::class, 'index']);   
+Route::get('/', [PostController::class, 'index'])->name('index');   
 Route::post('/posts/like', [PostController::class, 'like'])->name('posts.like');
-Route::get('/posts/create', [PostController::class, 'create']);
+Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
+Route::put('/posts/{post}', [PostController::class, 'update']);
+Route::post('/posts', [PostController::class, 'store']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -38,6 +39,5 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/', [PostController::class, 'index'])->name('index');
 
-Route::post('/posts', [PostController::class, 'store']);
+
